@@ -1,0 +1,19 @@
+﻿  main.cpp
+  mfe.cpp
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(115,16): warning C4244: =: преобразование "double" в "size_t", возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(176,25): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(358,29): warning C4267: =: преобразование из "size_t" в "_Ty"; возможна потеря данных
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(425,3): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(426,17): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(438,17): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(439,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(444,17): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(447,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(448,22): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Создание кода...
+C:\Users\Юлия\source\repos\Project-activity\MFE\mfe.cpp(156): warning C4715: Lambda: значение возвращается не при всех путях выполнения
+  MFE.vcxproj -> C:\Users\Юлия\source\repos\Project-activity\x64\Debug\MFE.exe

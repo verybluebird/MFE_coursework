@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b0c16b7d-d409-4699-ae0d-eaea1803b7a3": {
+      "ProjectGuid": "b0c16b7d-d409-4699-ae0d-eaea1803b7a3",
+      "DisplayName": "MFE",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
+    },
+    "5b1e0bf1-8397-49e8-ae92-96e50d6d3d1c": {
+      "ProjectGuid": "5b1e0bf1-8397-49e8-ae92-96e50d6d3d1c",
+      "DisplayName": "MFE_square",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
