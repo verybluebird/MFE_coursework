@@ -11,11 +11,15 @@ int main()
 
 		m.buildPortraitOfMatrix();
 		m.assemblyGlobalMatrix();
-		m.bc_2();
+		m.toDense("matrix2.txt");
+		//m.bc_2();
+		//m.bc_3();
+		//m.toDense("matrix2.txt");
 		m.bc_1();
 		m.toDense("matrix2.txt");
 		m.MSG();
 		m.writeToFile(m.q);
+		//m.iterationProcess();
 	}
 	catch (int error)
 	{
@@ -30,7 +34,7 @@ int main()
 			break;
 
 		case 2:
-			cout << "Unable write result to file!" << endl;
+			cout << "Unable to write result to file!" << endl;
 			break;
 		}		
 	}

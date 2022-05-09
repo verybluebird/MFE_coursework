@@ -20,10 +20,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mfe.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="mfe.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,6 +53,18 @@
       <Filter>Исходные файлы</Filter>
     </Text>
     <Text Include="q.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="matrix1.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="matrix2.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="bc3.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="mesh_rz.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
   </ItemGroup>

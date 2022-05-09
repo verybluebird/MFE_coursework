@@ -13,7 +13,7 @@ mfe::mfe()
 		MeshRZ.resize(Nuz);
 
 		double x, y;
-		for (size_t i = 0; i < Nuz; i++)
+		for (int i = 0; i < Nuz; i++)
 		{
 			inGrid >> x >> y;
 			MeshRZ[i] = std::make_pair(x, y);
@@ -29,11 +29,11 @@ mfe::mfe()
 	{
 		inElem >> Nel;
 		FE.resize(Nel);
-		for (size_t i = 0; i < Nel; i++)
+		for (int i = 0; i < Nel; i++)
 			FE[i].resize(3);
 
-		size_t n1, n2, n3;
-		for (size_t i = 0; i < Nel; i++)
+		int n1, n2, n3;
+		for (int i = 0; i < Nel; i++)
 		{
 			inElem >> n1 >> n2 >> n3;
 			FE[i] = { n1, n2, n3 };
@@ -50,7 +50,7 @@ mfe::mfe()
 		mats.resize(Nel);
 
 		double K, Phi, S2;
-		for (size_t i = 0; i < Nel; i++)
+		for (int i = 0; i < Nel; i++)
 		{
 			inMat >> K >> Phi >> S2;
 			mats[i].K = K;
@@ -68,12 +68,13 @@ mfe::mfe()
 		inPhase >> Nph;
 		Mu.resize(Nph);
 		
-		for (size_t i = 0; i < Nph; i++)
+		for (int i = 0; i < Nph; i++)
 			inPhase >> Mu[i];
 
 		inPhase.close();
 	}
 	else throw BAD_READ;
+
 
 	//-----------------------------------------------------
 	std::ifstream bc1File("bc1.txt");
@@ -81,9 +82,9 @@ mfe::mfe()
 	{
 		bc1File >> Nbc1;
 		bc1.resize(Nbc1);
-		for (size_t i = 0; i < Nbc1; i++)
+		for (int i = 0; i < Nbc1; i++)
 		{
-			size_t n_i;
+			int n_i;
 			double value_bc1;
 
 			bc1File >> n_i >> value_bc1;
@@ -100,10 +101,10 @@ mfe::mfe()
 		bc2File >> Nbc2;
 		bc2.resize(Nbc2);
 
-		size_t el_i, loc_node1_i, loc_node2_i;
+		int el_i, loc_node1_i, loc_node2_i;
 		double Tetta_i;
 
-		for (size_t i = 0; i < Nbc2; i++)
+		for (int i = 0; i < Nbc2; i++)
 		{
 			bc2File >> el_i >> loc_node1_i >> loc_node2_i >> Tetta_i;
 			bc2[i] = { el_i, loc_node1_i, loc_node2_i, Tetta_i };
@@ -111,7 +112,25 @@ mfe::mfe()
 		bc2File.close();
 	}
 	else throw BAD_READ;
+	//-----------------------------------------------------
+	std::ifstream bc3File("bc3.txt");
+	if (bc3File.is_open())
+	{
+		bc3File >> Nbc3;
+		bc3.resize(Nbc3);
 
+		int el_i, loc_node1_i, loc_node2_i;
+		double Betta_i;
+
+		for (int i = 0; i < Nbc3; i++)
+		{
+			bc3File >> el_i >> loc_node1_i >> loc_node2_i >> Betta_i;
+			bc3[i] = { el_i, loc_node1_i, loc_node2_i, Betta_i };
+		}
+		bc3File.close();
+	}
+	else throw BAD_READ;
+	//-----------------------------------------------------
 	maxIter = eps = 0;
 	std::ifstream slau("kuslau.txt");
 	if (slau.is_open())
@@ -121,89 +140,134 @@ mfe::mfe()
 	}
 	else throw BAD_READ;
 
-	// Для численного интегрирования
-	points.resize(3);
-	weights.resize(3);
-
-	// Точки Гаусса-3
-	points[0] = 0.0;
-	points[1] = sqrt(3.0 / 5.0);
-	points[2] = -sqrt(3.0 / 5.0);
-
-	// Квадратурные веса
-	weights[0] = 8.0 / 9.0;
-	weights[1] = 5.0 / 9.0;
-	weights[2] = 5.0 / 9.0;
-
-	// Матрица жесткости
+	b_loc.resize(3);
+	p_loc.resize(3);
 	G.resize(3);
-	for (size_t i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 		G[i].resize(3);
 
 	alfa.resize(3);
-	for (size_t i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 		alfa[i].resize(3);
-	lambda = 1;
-	F.resize(Nuz);
-}
-double Lambda(int field)
-{
-	if (field == 0)
-		return 10;
-	if (field == 1 || field == 2)
-		return 1;
 	
+	F.resize(Nuz);
+
+	c.resize(3);
+	for (int i = 0; i < 3; i++)
+		c.resize(3);
+
+	list.resize(Nuz);
+	ig.resize(Nuz + 1);
+	di.resize(Nuz);
+	mat.resize(Nuz);
+	for (int i = 0; i < mat.size(); i++)
+		mat[i].resize(Nuz, 0);
+	bc1nodes.resize(Nuz, -1);
+
+	b_2.resize(2);
+	b_3.resize(2);
+	ub.resize(2);
+
+	A3.resize(2);
+	A3[0].resize(2);
+	A3[1].resize(2);
+
+	um.resize(Nuz);
+	z.resize(Nuz);
+	r.resize(Nuz);
+	q.resize(Nuz);
+}
+double mfe::Lambda(int field)
+{
+	/*if (field == 0)
+		return 10;
+	else 
+	{
+		return 1;
+	}	*/
+	return 1;
+}
+double mfe::rightPart(int field, double r, double z)
+{
+	/*if (field == 0)
+		return 20;
+	else
+	{
+		return 0;
+	}*/
+	return -4;
+
+}
+double mfe::u_beta(double r, double z)
+{
+	return 20 * z - 27;
+
 }
 // Построить локальную матрицу жесткости*
-void mfe::buildLocalG(size_t ielem)
+void mfe::buildLocalG(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD)
 {
-	ScalFunc2D f;
-
-	double r1 = MeshRZ[FE[ielem][0]].first;
-	double r2 = MeshRZ[FE[ielem][1]].first;
-	double r3 = MeshRZ[FE[ielem][2]].first;
-	double z1 = MeshRZ[FE[ielem][0]].second;
-	double z2 = MeshRZ[FE[ielem][1]].second;
-	double z3 = MeshRZ[FE[ielem][2]].second;
-	double detD = (r2 - r1) * (z3 - z1) - (r3 - r1) * (z2 - z1);
+		
+	alfa[0] = { r2 * z3 - r3 * z2,		z2 - z3,		r3 - r2 };
+	alfa[1] = { r3 * z1 - r1 * z3,		z3 - z1,		r1 - r3 };
+	alfa[2] = { r1 * z2 - r2 * z1,		z1 - z2,		r2 - r1 };
 	
-	alfa[0] = { r2 * z3 - r3 * z2, z2 - z3, r3 - r2 };
-	alfa[1] = { r3 * z1 - r1 * z3, z3 - z1, r1 - r3 };
-	alfa[2] = { r1 * z2 - r2 * z1, z1 - z2, r2 - r1 };
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
 			alfa[i][j] /= detD;
+	
 	double L = Lambda(ielem);
 	double multix = L * abs(detD) * (r1 + r2 + r3) / 6.;
+	//double multix = L * abs(detD) /2;
 
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			G[i][j] = (multix* (alfa[i][1] * alfa[j][1] + alfa[i][2] * alfa[j][2])); 
+			G[i][j] = multix * (alfa[i][1] * alfa[j][1] + alfa[i][2] * alfa[j][2]); 
+	
+}
+// Построить локальный вектор правой части*
+void mfe::buildLocalF(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD)
+{
+	p_loc[0] = rightPart(ielem, r1, z1);
+	p_loc[1] = rightPart(ielem, r2, z2);
+	p_loc[2] = rightPart(ielem, r3, z3);
+	
+	c[0] = { 6 * r1 + 2 * r2 + 2 * r3,		2 * r1 + 2 * r2 + r3,		2 * r1 + r2 + 2 * r3 };
+	c[1] = { 2 * r1 + 2 * r2 + r3,			2 * r1 + 6 * r2 + 2 * r3,   r1 + 2 * r2 + 2 * r3 };
+	c[2] = { 2 * r1 + r2 + 2 * r3,			r1 + 2 * r2 + 2 * r3,		2 * r1 + 2 * r2 + 6 * r3 };
+	
+	double mult = abs(detD) / 120;
+	
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			c[i][j] *= mult;
+
+	for (int i = 0; i < 3; i++)
+		b_loc[i] = c[i] * p_loc;
 	
 }
 
 // Добавить элемент в глобальную матрицу
-void mfe::addElementToGlobal(size_t i, size_t j, double elem)
+void mfe::addElementToGlobal(int i, int j, double elem)
 {
 	if (i == j)
 	{
 		di[i] += elem;
 		return;
 	}
-	
 	else
 	{
-		for (size_t ind = ig[i]; ind < ig[i + 1]; ind++)
+		for (int ind = ig[i]; ind < ig[i + 1]; ind++)
 			if (jg[ind] == j)
 			{
 				gg[ind] += elem;
+				//gu[ind] += elem;
 				return;
 			}
 	}
 }
 
 // Посчитать сумму, которая стоит перед матрицей жесткости
-double mfe::calcSum(size_t ielem)
+double mfe::calcSum(int ielem)
 {
 	double sum = 0.0;
 
@@ -223,25 +287,41 @@ double mfe::calcSum(size_t ielem)
 // Сборка глобальной матрицы
 void mfe::assemblyGlobalMatrix()
 {
-	di.resize(Nuz);
-	cdi.resize(Nuz);
+	
 	gg.resize(ig.back());
-	cgg.resize(ig.back());
+	gu.resize(ig.back());
 
-	for (size_t ielem = 0; ielem < Nel; ielem++)
+	for (int ielem = 0; ielem < Nel; ielem++)
 	{
-		buildLocalG(ielem);
+		double r1 = MeshRZ[FE[ielem][0]].first;
+		double r2 = MeshRZ[FE[ielem][1]].first;
+		double r3 = MeshRZ[FE[ielem][2]].first;
+		double z1 = MeshRZ[FE[ielem][0]].second;
+		double z2 = MeshRZ[FE[ielem][1]].second;
+		double z3 = MeshRZ[FE[ielem][2]].second;
 
-		// Домножаем на коэффициент
-		double sum = calcSum(ielem);
-		for (size_t i = 0; i < G.size(); i++)
-		for (size_t j = 0; j < G[i].size(); j++)
-				G[i][j] *= sum;
+		double detD = (r2 - r1) * (z3 - z1) - (r3 - r1) * (z2 - z1);
 
-		for (size_t i = 0; i < FE[ielem].size(); i++)
-			for (size_t j = 0; j <= i; j++)
-				addElementToGlobal(FE[ielem][i], FE[ielem][j], G[i][j]);
-		
+		buildLocalG(ielem, r1, r2, r3, z1, z2, z3, detD);
+		buildLocalF(ielem, r1, r2, r3, z1, z2, z3, detD);
+
+		//// Домножаем на коэффициент
+		//double sum = calcSum(ielem);
+		//for (int i = 0; i < G.size(); i++)
+		//for (int j = 0; j < G[i].size(); j++)
+		//		G[i][j] *= sum;
+		int n1 = FE[ielem][0];
+		int n2 = FE[ielem][1];
+		int n3 = FE[ielem][2];
+		F[n1] += b_loc[0];
+		F[n2] += b_loc[1];
+		F[n3] += b_loc[2];
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j <= i; j++) {
+				int n1 = FE[ielem][i];
+				int n2 = FE[ielem][j];
+				addElementToGlobal(n1, n2, G[i][j]);
+			}
 	}
 	G.clear();
 }
@@ -249,31 +329,28 @@ void mfe::assemblyGlobalMatrix()
 // Построить портрет глобальной матрицы*правильно
 void mfe::buildPortraitOfMatrix()
 {
-	std::vector<std::vector<size_t>> list;
-
-	list.resize(Nuz);
 
 	list[0].push_back(0);
 
 	// Идем по всем КЭ
-	for (size_t ielem = 0; ielem < Nel; ielem++)
+	for (int ielem = 0; ielem < Nel; ielem++)
 	{
 		// Берем 1-ую соответствующую элементу базисную функцию
-		for (size_t i = 0; i < FE[ielem].size() - 1; i++) 
+		for (int i = 0; i < FE[ielem].size() - 1; i++) 
 			// Идем по всем остальным функциям, начиная со второй 
-			for (size_t j = i + 1; j < FE[ielem].size(); j++)
+			for (int j = i + 1; j < FE[ielem].size(); j++)
 			{
 				// Нужно добавить первую функцию(меньшую) в список ко всем 
 				// функциям, относящимся к КЭ
 				// Поэтому определяем позицию, куда будем добавлять (в какой список)
-				size_t insertPos = FE[ielem][j];
+				int insertPos = FE[ielem][j];
 				// Берем сам элемент, который будем вставлять
-				size_t element = FE[ielem][i];
+				int element = FE[ielem][i];
 
 				bool isIn = false;
 
 				// Проверим, есть ли уже этот элемент в списке
-				for (size_t k = 0; k < list[insertPos].size() && !isIn; k++)
+				for (int k = 0; k < list[insertPos].size() && !isIn; k++)
 					if (element == list[insertPos][k])
 						isIn = true;
 
@@ -284,26 +361,26 @@ void mfe::buildPortraitOfMatrix()
 	}
 
 	// Сортируем все получившиеся списки (по возрастанию номеров)
-	for (size_t i = 0; i < Nuz; i++)
+	for (int i = 0; i < Nuz; i++)
 		if (!isOrdered(list[i]))
 			sort(list[i].begin(), list[i].end());
 	//----------------------------------------------------------------
 	// Формируем массив ig
-	ig.resize(Nuz + 1);
+	
 
 	// 1-ый и 2-ой элементы всегда равны 1, но мы будем нумеровать с 0
 	ig[0] = 0;
 	ig[1] = 0;
-	for (size_t i = 1; i < list.size(); i++)
+	for (int i = 1; i < list.size(); i++)
 		ig[i + 1] = ig[i] + list[i].size();
 
 	//----------------------------------------------------------------
 	// Формируем массив jg
 	jg.resize(ig.back());
 
-	for (size_t i = 1, j = 0; i < Nuz; i++)
+	for (int i = 1, j = 0; i < Nuz; i++)
 	{
-		for (size_t k = 0; k < list[i].size(); k++)
+		for (int k = 0; k < list[i].size(); k++)
 			jg[j++] = list[i][k];
 	}
 }
@@ -313,7 +390,7 @@ bool mfe::isOrdered(const pvector& v)
 {
 	if(v.size() == 0)
 		return true;
-	for (size_t i = 0; i < v.size() - 1; i++)
+	for (int i = 0; i < v.size() - 1; i++)
 		if (v[i + 1] < v[i])
 			return false;
 	return true;
@@ -322,29 +399,30 @@ bool mfe::isOrdered(const pvector& v)
 // Перевод матрицы в плотный формат
 void mfe::toDense(const std::string _dense)
 {
-	mat.resize(MeshRZ.size());
-	for (size_t i = 0; i < mat.size(); i++)
-		mat[i].resize(MeshRZ.size(), 0);
-	for (size_t i = 0; i < mat.size(); i++)
+	for (int i = 0; i < mat.size(); i++)
 	{
 		mat[i][i] = di[i];
-		for (size_t j = ig[i]; j < ig[i + 1]; j++)
+		for (int j = ig[i]; j < ig[i + 1]; j++)
 		{
 			mat[i][jg[j]] = gg[j];
+			//mat[jg[j]][i] = gu[j];
 		}
 	}
 	std::ofstream dense(_dense);
-	dense.precision(2);
+	dense.precision(5);
 	if (dense.is_open())
 	{
-		for (size_t i = 0; i < mat.size(); i++)
+		for (int i = 0; i < mat.size(); i++)
 		{
-			for (size_t j = 0; j <= i; j++)
+			dense << std::left << std::setw(20) << F[i];
+			for (int j = 0; j <= i; j++)
 				dense << std::left << std::setw(10) << mat[i][j];
+			
 			dense << std::endl << std::endl;
 		}
+
 	}
-	mat.clear();
+	
 }
 
 
@@ -353,18 +431,17 @@ void mfe::toDense(const std::string _dense)
 // Учет первых краевых
 void mfe::bc_1()
 {
-	std::vector<int> bc1nodes(Nuz, -1);
-	for (size_t i = 0; i < bc1.size(); i++)
+	for (int i = 0; i < bc1.size(); i++)
 		bc1nodes[bc1[i].first] = i; // В узле задано краевое
 
-	size_t k;
-	for (size_t i = 0; i < Nuz; i++)
+	int k;
+	for (int i = 0; i < Nuz; i++)
 	{
 		if (bc1nodes[i] != -1)
 		{
 			di[i] = 1.0;
 			F[i] = bc1[bc1nodes[i]].second;
-			for (size_t j = ig[i]; j < ig[i + 1]; j++)
+			for (int j = ig[i]; j < ig[i + 1]; j++)
 			{
 				k = jg[j];
 				if (bc1nodes[k] == -1)
@@ -374,7 +451,7 @@ void mfe::bc_1()
 		}
 		else
 		{
-			for (size_t j = ig[i]; j < ig[i + 1]; j++)
+			for (int j = ig[i]; j < ig[i + 1]; j++)
 			{
 				k = jg[j];
 				if (bc1nodes[k] != -1)
@@ -391,26 +468,68 @@ void mfe::bc_1()
 
 void mfe::bc_2()
 {
-	for (size_t i = 0; i < Nbc2; i++)
+	for (int i = 0; i < Nbc2; i++)
 	{
-		size_t el_i = bc2[i].n_i;
-		size_t loc_node1_i = bc2[i].loc_node1_i;
-		size_t loc_node2_i = bc2[i].loc_node2_i;
+		int el_i = bc2[i].n_i;
+		int loc_node1_i = bc2[i].loc_node1_i;
+		int loc_node2_i = bc2[i].loc_node2_i;
 		double Tetta_i = bc2[i].Tetta_i;
 
-		size_t ind_1 = FE[el_i][loc_node1_i];
-		size_t ind_2 = FE[el_i][loc_node2_i];
+		int ind_1 = FE[el_i][loc_node1_i];
+		int ind_2 = FE[el_i][loc_node2_i];
 		double r1 = MeshRZ[ind_1].first;
 		double r2 = MeshRZ[ind_2].first;
 		double z1 = MeshRZ[ind_1].second;
 		double z2 = MeshRZ[ind_2].second;
-		std::vector<double> b_loc(2);
+		
 		double hm = sqrt((r2 - r1) * (r2 - r1) + (z2 - z1) * (z2 - z1));
+		//b_2[0] = b_2[1] = hm * Tetta_i / 2;
 
-		b_loc[0] = (8 * r1 + 4 * r2) * hm * Tetta_i / 24;
-		b_loc[1] = (8 * r2 + 4 * r1) * hm * Tetta_i/24 ;
-		F[ind_1] += b_loc[0];
-		F[ind_2] += b_loc[1];
+		b_2[0] = (8 * r1 + 4 * r2) * hm * Tetta_i / 24;
+		b_2[1] = (8 * r2 + 4 * r1) * hm * Tetta_i / 24 ;
+		F[ind_1] += b_2[0];
+		F[ind_2] += b_2[1];
+	}
+}
+// Учет третьих краевых
+
+void mfe::bc_3()
+{
+	for (int i = 0; i < Nbc3; i++)
+	{
+		int el_i = bc3[i].n_i;
+		int loc_node1_i = bc3[i].loc_node1_i;
+		int loc_node2_i = bc3[i].loc_node2_i;
+		double Betta_i = bc3[i].Tetta_i;
+
+		int ind_1 = FE[el_i][loc_node1_i];
+		int ind_2 = FE[el_i][loc_node2_i];
+		double r1 = MeshRZ[ind_1].first;
+		double r2 = MeshRZ[ind_2].first;
+		double z1 = MeshRZ[ind_1].second;
+		double z2 = MeshRZ[ind_2].second;
+		double hm = sqrt((r2 - r1) * (r2 - r1) + (z2 - z1) * (z2 - z1));
+		double ub1 = u_beta(r1, z1);
+		double ub2 = u_beta(r2, z2);
+		ub[0] = ub1;
+		ub[1] = ub2;
+		
+		
+		
+		double k = Betta_i * hm / 24.;
+		A3[0] = { k * (6 * r1 + 2 * r2), k * 2 * (r1 + r2) };
+		A3[1] = { k * 2 * (r1 + r2), k * (2 * r1 + 6 * r2) };
+
+		b_3[0] = A3[0] * ub;
+		b_3[1] = A3[1] * ub;
+
+		addElementToGlobal(ind_1, ind_1, A3[0][0]);
+		addElementToGlobal(ind_1, ind_2, A3[0][1]);
+		addElementToGlobal(ind_2, ind_1, A3[1][0]);
+		addElementToGlobal(ind_2, ind_2, A3[1][1]);
+		F[ind_1] += b_3[0];
+		F[ind_2] += b_3[1];
+		
 	}
 }
 
@@ -419,6 +538,9 @@ void mfe::bc_2()
 //===========================================================================================
 // Решение СЛАУ
 void mfe::mult(mvector& x, mvector& y) {
+	for (int i = 0; i < y.size(); i++)
+		y[i] = 0;
+	
 
 	for (int i = 0; i < Nuz; i++) {
 		y[i] = di[i] * x[i];
@@ -432,40 +554,6 @@ void mfe::mult(mvector& x, mvector& y) {
 }
 
 
-void mfe::calc_cholesky() {
-	for (int i = 0; i < Nuz; i++)
-	{
-		int i0 = ig[i];
-		int i1 = ig[i + 1];
-		double sumD = 0;
-
-		for (int m = i0; m < i1; m++)
-		{
-			int j = jg[m];
-			double sumL = 0;
-			int mi = i0;
-			int j0 = ig[j];
-			int j1 = ig[j + 1];
-			int mj = j0;
-			while (mi < m && mj < j1)
-			{
-				if (jg[mj] == jg[mi])
-				{
-					sumL += cgg[mi] * cgg[mj];
-					mj++;
-					mi++;
-				}
-				else if (jg[mj] < jg[mi])
-					mj++;
-				else
-					mi++;
-			}
-			cgg[m] = (gg[m] - sumL) / cdi[j];
-			sumD += cgg[m] * cgg[m];
-		}
-		cdi[i] = sqrt(di[i] - sumD);
-	}
-}
 double mfe::EuclideanNorm(mvector & x) {
 	double scalar = 0;
 	for (int i = 0; i < Nuz; i++)
@@ -473,14 +561,15 @@ double mfe::EuclideanNorm(mvector & x) {
 	scalar = sqrt(scalar);
 	return scalar;
 }
+
+
 // Метод сопряженных градиентов
 void mfe::MSG() {
-	mvector um;
-	mvector r;
 	
-	um.resize(Nuz);
-	r.resize(Nuz);
-	q.resize(Nuz);
+	for (int i = 0; i < Nuz; i++)
+		um[i] = z[i] = r[i] = 0;
+	
+	
 	double scal1 = 0;
 	double scal2 = 0;
 	double scal3 = 0;
@@ -543,14 +632,14 @@ void mfe::MSG() {
 }
 
 // Записать результат в файл
-void mfe::writeToFile(mvector q)
+void mfe::writeToFile(mvector& q)
 {
 	std::ofstream res("q.txt");
 	if (res.is_open())
 	{
 		res.precision(15);
 		res << q.size() << std::endl << std::endl;
-		for (size_t i = 0; i < q.size(); i++)
+		for (int i = 0; i < q.size(); i++)
 			res << std::setprecision(15) << q[i] << std::endl;
 		res.close();
 		toDense("matrix.txt");

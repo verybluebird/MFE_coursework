@@ -28,8 +28,12 @@
   <ItemGroup>
     <Text Include="bc1.txt" />
     <Text Include="bc2.txt" />
+    <Text Include="bc3.txt" />
     <Text Include="elem.txt" />
     <Text Include="kuslau.txt" />
+    <Text Include="matrix1.txt" />
+    <Text Include="matrix2.txt" />
+    <Text Include="mesh_rz.txt" />
     <Text Include="node.txt" />
     <Text Include="mat.txt" />
     <Text Include="matrix.txt" />

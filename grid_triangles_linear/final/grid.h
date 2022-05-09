@@ -27,6 +27,9 @@ private:
 	double z0 = 0; //откуда начинается первый сверху слой по z
 	vector<double> r_coord; // координаты по r
 	vector<double> z_coord; // координаты по z
+	vector<double> time_coord; // координаты по t
+	int M_t;
+	int n_t;
 
 public:
 	void input();// ввод  данных
@@ -47,6 +50,6 @@ public:
 	void nested_grid(vector<double>& coord); //увеличивает кол-во узлов вдвое
 	void add_if_not_exist_and_sort(double L); // добавить новый узел в сетку, если его не существует
 	void print_profile(); // распечатать профиль матрицы
-
+	void time();
 
 };

@@ -77,6 +77,15 @@ void Grid::input()
 	}
 	else cout << "File plast.txt is not opened!\n\n" << endl;
 
+	file.open("mesh_t.txt");
+	if (file.is_open()) {
+		file >> n_t;
+		file >> M_t;
+		file.close();
+	}
+	else cout << "File mesh_t.txt is not opened!\n\n" << endl;
+
+
 }
 
 void Grid::add_if_not_exist_and_sort(double L)
@@ -144,13 +153,7 @@ void Grid::nodes()
 	sort(r_coord.begin(), r_coord.end());
 	r_coord.erase(unique(r_coord.begin(), r_coord.end()), r_coord.end());
 	//делаем вложенную сетку, если надо 
-	if (M == 1) {
-		nested_grid(r_coord);
-		nested_grid(z_coord);
-	}
-	if (M == 2) {
-		nested_grid(r_coord);
-		nested_grid(z_coord);
+	for (int i = 0; i < M; i++) {
 		nested_grid(r_coord);
 		nested_grid(z_coord);
 	}
@@ -216,15 +219,19 @@ void Grid::material()
 	}
 	out.close();
 }
-
+double u(double r, double z) {
+	return r * r;
+}
 void Grid::gr_bc1()
 {
 	Nbc1 = z_coord.size();
 	ofstream out;
 	out.open("bc1.txt");
-	out << Nbc1 << endl;
-	for (int i = 1; i <= z_coord.size(); i++)
-		out << i * r_coord.size() - 1 << ' ' << Plast << endl;
+	out << Nbc1*2 << endl;
+	for (int i = 1; i <= z_coord.size(); i++) {
+		out << (i-1) * r_coord.size() << ' ' << u(r_coord[0], z_coord[i-1]) << endl;
+		out << i * r_coord.size() - 1 << ' ' << u(r_coord.back(),z_coord[i-1]) << endl;
+	}
 	out.close();
 }
 
@@ -309,4 +316,35 @@ void Grid::print_profile()
 			out << c_list[i][j] << ' ';
 	out << endl;
 	out.close();
+}
+
+void Grid::time()
+{
+
+	time_coord.resize(n_t); // координаты сетки по x
+	time_coord[0] = 1;
+	int k = 1;
+	for (int i = 1; i < n_t; i++)
+	{
+		time_coord[i] = time_coord[i - 1] + 1;
+	}
+
+	//делаем вложенную сетку, если надо 
+	for (size_t i = 0; i < M_t; i++)
+		nested_grid(time_coord);
+
+
+	Nuz = time_coord.size();
+
+	// вывод в файл
+	ofstream file("time.txt");
+	if (file.is_open())
+	{
+		file << Nuz << endl;
+		file.precision(16);
+		for (int j = 0; j < Nuz; j++)
+			file << time_coord[j] << endl;
+		file.close();
+	}
+	else cout << "File time.txt is not opened!\n\n" << endl;
 }
