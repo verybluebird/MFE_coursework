@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mfe.cpp" />
+    <ClCompile Include="mfe — t2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="bc1.txt" />

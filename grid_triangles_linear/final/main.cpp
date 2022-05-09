@@ -12,6 +12,7 @@ int main()
 	grid.gr_bc1();
 	grid.gr_bc2();
 	grid.time();
+	grid.out_coords();
 	//grid.print_profile();
 
 	return 0;

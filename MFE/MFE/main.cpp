@@ -10,16 +10,16 @@ int main()
 		mfe m;
 
 		m.buildPortraitOfMatrix();
-		m.assemblyGlobalMatrix();
-		m.toDense("matrix2.txt");
-		//m.bc_2();
-		//m.bc_3();
+		//m.assemblyGlobalMatrix();
 		//m.toDense("matrix2.txt");
-		m.bc_1();
-		m.toDense("matrix2.txt");
-		m.MSG();
-		m.writeToFile(m.q);
-		//m.iterationProcess();
+		////m.bc_2();
+		////m.bc_3();
+		////m.toDense("matrix2.txt");
+		//m.bc_1();
+		//m.toDense("matrix2.txt");
+		//m.MSG();
+		//m.writeToFile(m.q);
+		m.iterationProcess();
 	}
 	catch (int error)
 	{

@@ -39,6 +39,8 @@ public:
 	//========================================================================
 	void buildPortraitOfMatrix();
 	void buildLocalG(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD);
+	
+	void buildLocalF(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD, double dt, double t, double q0[3]);
 	void buildLocalF(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD);
 	void buildLocalF(int ielem, double dt, double t, double q0[3]);
 	void addElementToGlobal(int i, int j, double elem);
@@ -90,6 +92,10 @@ public:
 
 	int Nuz;					// Размер сетки
 	grid MeshRZ;				// Сетка
+	std::vector<double> r_coord; 
+	std::vector<double> z_coord;
+	int Rsize;
+	int Zsize;
 
 	int Nel;					// Количество КЭ
 	finiteElem FE;				// Конечные элементы

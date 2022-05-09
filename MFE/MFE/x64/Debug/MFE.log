@@ -1,10 +1,17 @@
-﻿  main.cpp
-  mfe.cpp
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe.cpp(134,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe.cpp(375,37): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+﻿  mfe — t2.cpp
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(160,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(412,37): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
           with
           [
               _Ty=int
           ]
-  Generating Code...
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(689,17): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(693,18): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\utility(247,55): warning C4267: 'initializing': conversion from 'size_t' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(470): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(470): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
   MFE.vcxproj -> C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\x64\Debug\MFE.exe

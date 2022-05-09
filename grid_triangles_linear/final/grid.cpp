@@ -173,6 +173,25 @@ void Grid::nodes()
 	else cout << "File node.txt is not opened!\n\n" << endl;
 }
 
+void Grid::out_coords()
+{
+	ofstream out;
+	out.open("coords.txt");
+	out << r_coord.size() << '\n';
+	for (int i = 0; i < r_coord.size(); i++)
+	{
+		out << r_coord[i] << " ";
+	}
+	out << '\n';
+	out << z_coord.size() << '\n';
+	for (int i = 0; i < z_coord.size(); i++)
+	{
+		out << z_coord[i] << " ";
+	}
+	
+	out.close();
+}
+
 void Grid::elems()
 {
 	Nel = 2 * (z_coord.size() - 1) * (r_coord.size() - 1);

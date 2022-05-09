@@ -486,7 +486,7 @@ void mfe::make_bc_1(double t)
 {
 
 	for (int i = 1; i <= z_coord.size(); i++) {
-		bc1[i].first = i * r_coord.size();
+		bc1[i].first = (i-1) * r_coord.size();
 		bc1[i].second = u_t(r_coord[0], z_coord[i - 1], t);
 
 		bc1[i].first = i * r_coord.size() - 1;

@@ -154,7 +154,7 @@ mfe::mfe()
 
 	c.resize(3);
 	for (int i = 0; i < 3; i++)
-		c.resize(3);
+		c[i].resize(3);
 
 	list.resize(Nuz);
 	ig.resize(Nuz + 1);

@@ -43,6 +43,7 @@ public:
 	int Nbc2;//кол-во вторых краевых условий
 	vector<vector<double>> bc2;
 	void nodes();
+	void out_coords();
 	void elems();
 	void material();
 	void gr_bc1();
