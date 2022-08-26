@@ -142,8 +142,31 @@
     <ClInclude Include="grid.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\grid.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\bc1.txt" />
+    <Text Include="data\bc2.txt" />
+    <Text Include="data\coords.txt" />
+    <Text Include="data\domain_rz.txt" />
+    <Text Include="data\elem.txt" />
+    <Text Include="data\kuslau.txt" />
+    <Text Include="data\mat.txt" />
+    <Text Include="data\matrix.txt" />
+    <Text Include="data\mesh_rz.txt" />
+    <Text Include="data\mesh_t.txt" />
+    <Text Include="data\node.txt" />
+    <Text Include="data\phaseprop.txt" />
+    <Text Include="data\plast.txt" />
+    <Text Include="data\point.txt" />
+    <Text Include="data\profile.txt" />
+    <Text Include="data\q.txt" />
+    <Text Include="data\time.txt" />
+    <Text Include="data\zone_perf_rz.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\Draw.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

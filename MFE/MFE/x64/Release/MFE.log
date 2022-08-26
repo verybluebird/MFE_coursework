@@ -1,22 +1,24 @@
-﻿  mfe — t2.cpp
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(160,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(446,37): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+﻿  mfe — t — 4х слойная неяв.cpp
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(160,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(447,37): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
           with
           [
               _Ty=int
           ]
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(723,17): warning C4778: 'fprintf' : unterminated format string '%\n'
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(727,18): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(726,17): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(727,17): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(731,18): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(742,17): warning C4778: 'fprintf' : unterminated format string '%\n'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\utility(247,55): warning C4267: 'initializing': conversion from 'size_t' to '_Ty1', possible loss of data
           with
           [
               _Ty1=int
           ]
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(504): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t2.cpp(504): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(505): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\mfe — t — 4х слойная неяв.cpp(505): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
   Generating code
-  32 of 668 functions ( 4.8%) were compiled, the rest were copied from previous compilation.
+  1 of 682 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   MFE.vcxproj -> C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\x64\Release\MFE.exe

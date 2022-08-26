@@ -23,22 +23,39 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mfe — t2.cpp" />
+    <ClCompile Include="src\mfe _t4impl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="bc1.txt" />
-    <Text Include="bc2.txt" />
-    <Text Include="bc3.txt" />
-    <Text Include="elem.txt" />
-    <Text Include="kuslau.txt" />
-    <Text Include="matrix1.txt" />
-    <Text Include="matrix2.txt" />
-    <Text Include="mesh_rz.txt" />
-    <Text Include="node.txt" />
-    <Text Include="mat.txt" />
-    <Text Include="matrix.txt" />
-    <Text Include="phaseprop.txt" />
-    <Text Include="q.txt" />
+    <Text Include="data\bc1.txt" />
+    <Text Include="data\bc2.txt" />
+    <Text Include="data\bc3.txt" />
+    <Text Include="data\coords.txt" />
+    <Text Include="data\domain_rz.txt" />
+    <Text Include="data\elem.txt" />
+    <Text Include="data\kuslau.txt" />
+    <Text Include="data\mat.txt" />
+    <Text Include="data\matrix.txt" />
+    <Text Include="data\matrix1.txt" />
+    <Text Include="data\matrix2.txt" />
+    <Text Include="data\mesh_rz.txt" />
+    <Text Include="data\mesh_t.txt" />
+    <Text Include="data\node.txt" />
+    <Text Include="data\phaseprop.txt" />
+    <Text Include="data\phaseprop_xy.txt" />
+    <Text Include="data\plast.txt" />
+    <Text Include="data\plast_xy.txt" />
+    <Text Include="data\point.txt" />
+    <Text Include="data\profile.txt" />
+    <Text Include="data\q.txt" />
+    <Text Include="data\qxy.txt" />
+    <Text Include="data\time.txt" />
+    <Text Include="data\wells.txt" />
+    <Text Include="data\zone_perf_rz.txt" />
+    <Text Include="src\mfe — t — 4х слойная неяв — копия.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\Draw.py" />
+    <None Include="data\final.exe" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

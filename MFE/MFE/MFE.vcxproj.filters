@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{c2b8764d-960b-471b-8f7d-4d78bf1e0b67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mfe.h">
@@ -23,49 +26,90 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="mfe — t2.cpp">
+    <ClCompile Include="src\mfe _t4impl.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="node.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="src\mfe — t — 4х слойная неяв — копия.txt" />
+    <Text Include="data\bc1.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="elem.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\bc2.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="matrix.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\bc3.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="mat.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\coords.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="phaseprop.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\domain_rz.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="bc1.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\elem.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="bc2.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\kuslau.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="kuslau.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\mat.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="q.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\matrix.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="matrix1.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\matrix1.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="matrix2.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\matrix2.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="bc3.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\mesh_rz.txt">
+      <Filter>Data</Filter>
     </Text>
-    <Text Include="mesh_rz.txt">
-      <Filter>Исходные файлы</Filter>
+    <Text Include="data\mesh_t.txt">
+      <Filter>Data</Filter>
     </Text>
+    <Text Include="data\node.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\phaseprop.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\phaseprop_xy.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\plast.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\plast_xy.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\point.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\profile.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\q.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\qxy.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\time.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\wells.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="data\zone_perf_rz.txt">
+      <Filter>Data</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\Draw.py" />
+    <None Include="data\final.exe" />
   </ItemGroup>
 </Project>

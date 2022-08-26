@@ -6,6 +6,7 @@
 #include <fstream>
 #include <algorithm>
 #include <iomanip>
+#include <iostream>
 
 typedef std::vector <std::pair<double, double>> grid;
 typedef std::vector<int> pvector;
@@ -37,15 +38,22 @@ public:
 	mfe();
 	void iterationProcess();
 	//========================================================================
-	void buildPortraitOfMatrix();
+	void buildPortraitOfMatrix(); 
+	void buildLocalG(int ielem);
 	void buildLocalG(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD);
-	
-	void buildLocalF(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD, double dt, double t, double q0[3]);
-	void buildLocalF(int ielem, double r1, double r2, double r3, double z1, double z2, double z3, double detD);
+	void buildLocalG(int ielem, double r[3], double z[3], double detD);
+	void buildLocalF(int ielem, double r[3], double z[3], double detD,
+		double dt, double t, mvector& q0, mvector& q1, mvector& q2);
+	void buildLocalF(int ielem, double r[3], double z[3], double detD, double t, mvector& q0, mvector& q1, mvector& q2, double diffn1, double diffn2, double diffn3);
 	void buildLocalF(int ielem, double dt, double t, double q0[3]);
+	void buildLocalF(int ielem);
 	void addElementToGlobal(int i, int j, double elem);
+
+	double calcSum(int ielem);
 	void assemblyGlobalMatrix();
 	void assemblyGlobalMatrix(double t, double dt, std::vector<double>& q_);
+	void assemblyGlobalMatrix(double t, double t1, double t2, double t3,
+		std::vector<double>& q_0, std::vector<double>& q_1, std::vector<double>& q_2);
 	void toDense(const std::string _dense);
 
 	double rightPart(int field, double r, double z);
@@ -62,27 +70,30 @@ public:
 
 	//========================================================================
 	void mult(mvector& x, mvector& y);
+	void LOS();
 	void MSG( );
 	void writeToFile(mvector& q);
 	void writeToFile(mvector& q, double t);
 	double EuclideanNorm(mvector& x);
 
-public:
-	matrix G;	// Матрица жесткости
+private:
+	matrix G;	// stiffness matrix
 	matrix alfa;
 	matrix c;
-	matrix M;
+	matrix M; //mass matrix
 
-	mvector q;	// текущее решение
-	mvector q0; //предыдущее решение
-	mvector p; // следующий вектор итерации
-	mvector p0;//текущий вектор итерации
-	mvector p_1;
-	mvector Au;
+	mvector q;	// current solution
+	mvector q0; //previous solution at t-1
+	mvector q1; //solution at t-2
+	mvector q2; //solution at t-3
+	//mvector p; // next iteration vector
+	//mvector p0; //current iteration vector
+	//mvector p_1;
+	//mvector Au;
 
-	mvector b_loc;
+	mvector b_loc; // local right side vector
 	mvector p_loc;
-	mvector F;	// Вектор правой части
+	mvector F;	//Right side vector
 	
 	std::vector<int> bc1nodes;
 	std::vector<double> b_2;
@@ -90,21 +101,21 @@ public:
 	std::vector<double> ub;
 	matrix A3;
 
-	int Nuz;					// Размер сетки
-	grid MeshRZ;				// Сетка
+	int Nuz;					// Grid Size
+	grid MeshRZ;				// grid
 	std::vector<double> r_coord; 
 	std::vector<double> z_coord;
 	int Rsize;
 	int Zsize;
 
-	int Nel;					// Количество КЭ
-	finiteElem FE;				// Конечные элементы
+	int Nel;					// Number of FE
+	finiteElem FE;				// Finite Elements
 
-	int Nph;					// Количество фаз
-	mvector Mu;					// Вязкости 
+	int Nph;					// Number of phases
+	mvector Mu;					// Viscosities
 
 
-	std::vector<material> mats; // Материалы
+	std::vector<material> mats; // Materials
 	std::vector<std::vector<int>> list; 
 
 	int Nbc1;
@@ -115,7 +126,7 @@ public:
 	std::vector<_bc> bc2;
 	std::vector<_bc> bc3;
 
-	// Глобальная матрица
+	// Global matrix
 	mvector di;
 	mvector gg;
 	mvector gu;
@@ -126,16 +137,13 @@ public:
 
 	bool isOrdered(const pvector& v);
 
-	double calcSum(int ielem);
-
-
 	int maxIter;
 	double eps;
 
 	mvector time;
 	int n;
 
-	//для мсг
+	//for CGM
 	mvector um;
 	mvector r;
 	mvector z;
@@ -144,16 +152,18 @@ public:
 
 inline mvector operator+( mvector& a, const mvector& b)
 {
+	mvector res = a;
 	for (int i = 0; i < a.size(); i++)
-		a[i] += b[i];
-	return a;
+		res[i] += b[i];
+	return res;
 }
 
 inline mvector operator-( mvector& a, const mvector& b)
 {
+	mvector res = a;
 	for (int i = 0; i < a.size(); i++)
-		a[i] -= b[i];
-	return a;
+		res[i] -= b[i];
+	return res;
 }
 
 inline double operator*(const mvector& a, const mvector& b)

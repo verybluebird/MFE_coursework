@@ -20,11 +20,72 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\bc1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\bc2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\coords.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\domain_rz.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\elem.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\kuslau.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\mat.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\matrix.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\mesh_rz.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\mesh_t.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\node.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\phaseprop.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\plast.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\point.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\profile.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\q.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\time.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data\zone_perf_rz.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\Draw.py">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
