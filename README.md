@@ -3,7 +3,7 @@
 Implementation of the finite element method (FEM) for non-stationary parabolic boundary value problem in two-dimensional space, cylindrical coordinates. Finite elements are triangles with linear basis functions. The time scheme is four-layer implicit.
 
 ## Introduction
-Choosed differential equation system describes the multi-phase flow of an incompressible unstirred isothermal fluid in an open domain. The goal is to find an approximation of the pressure function.
+Chosen differential equation system describes the multi-phase flow of an incompressible unstirred isothermal fluid in an open domain. The goal is to find an approximation of the pressure function.
 # Installation
 ```
  git clone https://github.com/verybluebird/MFE_coursework
@@ -46,7 +46,7 @@ The `data/` directory contains input data for program.
  
 * If desired function is given, specify this function as  
   ```double mfe::u_t(double r, double z, double t){ } ```  
-  then calculate the right part of differential equation and specify as
+  then calculate the right part of the differential equation and specify as
   ```double mfe::rightPart(int field, double r, double z, double t)	{}``` in **MFE** module.
 * Build and run **MFE** module. As a result you will have `q.txt` file where function values at grid nodes in different time layers are stored. 
 
