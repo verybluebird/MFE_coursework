@@ -1,9 +1,11 @@
-## MFE_coursework
 ## Coursework on numerical methods, 5 semester FAMI NSTU
 Implementation of the finite element method (FEM) for non-stationary parabolic boundary value problem in two-dimensional space, cylindrical coordinates. Finite elements are triangles with linear basis functions. The time scheme is four-layer implicit.
 
 ## Introduction
-Choosed differential equation system describes the multi-phase flow of an incompressible unstirred isothermal fluid in an open domain. The goal is to find an approximation of the pressure function.
+Chosen differential equation system describes the multi-phase flow of an incompressible unstirred isothermal fluid in an open domain. The goal is to find an approximation of the pressure function. The function u can be approximated by a function $u_h$ using linear combinations of basis functions $u \approx u_h $  
+$u_h = \sum_{i} u_i \psi_i$  
+Here, $\psi_i$ denotes the basis functions and $u_i$ denotes the coefficients of the functions that approximate u with $u_h$.
+As a result of this program, we will get the coefficients $u_i$.
 # Installation
 ```
  git clone https://github.com/verybluebird/MFE_coursework
@@ -12,7 +14,7 @@ Excecute this project in MS Visual Studio.
 
 ## Modules description:
 **Draw** - Phyton module for drawing a grid. It is needed to check the correctness of the grid generation.   
-![grid](https://github.com/verybluebird/MFE_coursework/blob/main/grid.png?raw=true)
+![grid](https://github.com/verybluebird/MFE_coursework/blob/main/pictures/grid.png?raw=true)
 **grid_triangles_linear** - module for generating a grid for finite elements of the form: triangles with linear basic functions.  
 **MFE** - module that takes grid from previous module and approximates the unknown function over the domain with given boundary conditions using Finite Element Method.       
 # Layout
@@ -46,10 +48,9 @@ The `data/` directory contains input data for program.
  
 * If desired function is given, specify this function as  
   ```double mfe::u_t(double r, double z, double t){ } ```  
-  then calculate the right part of differential equation and specify as
+  then calculate the right part of the differential equation and specify as
   ```double mfe::rightPart(int field, double r, double z, double t)	{}``` in **MFE** module.
-* Build and run **MFE** module. As a result you will have `q.txt` file where function values at grid nodes in different time layers are stored. 
-
+* Build and run **MFE** module. As a result you will have `q.txt` file where function values at grid nodes in different time layers are stored. When programm is tested on spesific desired function The calculation error is also output to the file.
 
 ## Data input
 
@@ -111,6 +112,7 @@ Let the z-coordinate grid be uniform in each layer (kz=1)
   Pressure
 ```
 
-
-
+## Comparison of numerical and analytical calculations
+Comparison of numerical and analytical calculations for the pressure function. The area is rectangular, the second boundary conditions are set on the left, the first boundary conditions are set on the right.
+![chart](https://github.com/verybluebird/MFE_coursework/blob/main/pictures/chart.png?raw=true)
 
