@@ -2,7 +2,7 @@
 Implementation of the finite element method (FEM) for non-stationary parabolic boundary value problem in two-dimensional space, cylindrical coordinates. Finite elements are triangles with linear basis functions. The time scheme is four-layer implicit.
 
 ## Introduction
-Chosen differential equation system describes the multi-phase flow of an incompressible unstirred isothermal fluid in an open domain. The goal is to find an approximation of the pressure function. The function $u$ can be approximated by a function $u_h$ using linear combinations of basis functions $u \approx u_h $ where $u_h = \sum_{i} u_i \psi_i$. Here, $\psi_i$ denotes the basis functions and $u_i$ denotes the coefficients of the functions that approximate $u$ with $u_h$.
+Chosen differential equation system describes the multi-phase flow of an incompressible unstirred isothermal fluid in an open domain. The goal is to find an approximation of the pressure function. The function $u$ can be approximated by a function $u_h$ using linear combinations of basis functions $u \approx u_h$ where  $$u_h = \sum_{i} u_i \psi_i$$ Here, $\psi_i$ denotes the basis functions and $u_i$ denotes the coefficients of the functions that approximate $u$ with $u_h$.
 As a result of this program, we will get the coefficients $u_i$.
 # Installation
 ```
