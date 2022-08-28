@@ -1,17 +1,19 @@
-﻿  mfe — t — 4х слойная неяв.cpp
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe — t — 4х слойная неяв.cpp(160,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe — t — 4х слойная неяв.cpp(443,37): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
+﻿  main.cpp
+  mfe _t4impl.cpp
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe _t4impl.cpp(160,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe _t4impl.cpp(443,37): warning C4267: '=': conversion from 'size_t' to '_Ty', possible loss of data
           with
           [
               _Ty=int
           ]
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe — t — 4х слойная неяв.cpp(721,17): warning C4778: 'fprintf' : unterminated format string '%\n'
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe — t — 4х слойная неяв.cpp(725,18): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe _t4impl.cpp(721,17): warning C4778: 'fprintf' : unterminated format string '%\n'
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe _t4impl.cpp(725,18): warning C4778: 'fprintf' : unterminated format string '%\n'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.31.31103\include\utility(247,55): warning C4267: 'initializing': conversion from 'size_t' to '_Ty1', possible loss of data
           with
           [
               _Ty1=int
           ]
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe — t — 4х слойная неяв.cpp(501): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
-C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe — t — 4х слойная неяв.cpp(501): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe _t4impl.cpp(501): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
+C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\MFE\src\mfe _t4impl.cpp(501): message : see reference to function template instantiation 'std::pair<int,double>::pair<unsigned __int64,double,0>(std::pair<unsigned __int64,double> &&) noexcept' being compiled
+  Generating Code...
   MFE.vcxproj -> C:\Users\Юлия\source\repos\MFE_coursework_5se\MFE\x64\Debug\MFE.exe

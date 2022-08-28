@@ -1,6 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include "grid.h"
+#include "include/grid.h"
 
 int main()
 {

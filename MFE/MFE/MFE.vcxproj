@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mfe.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\mfe _t4impl.cpp" />
   </ItemGroup>
@@ -51,11 +48,13 @@
     <Text Include="data\time.txt" />
     <Text Include="data\wells.txt" />
     <Text Include="data\zone_perf_rz.txt" />
-    <Text Include="src\mfe — t — 4х слойная неяв — копия.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Draw.py" />
     <None Include="data\final.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\mfe.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

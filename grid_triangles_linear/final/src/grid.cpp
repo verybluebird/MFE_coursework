@@ -1,8 +1,5 @@
-﻿#include "../grid.h"
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-using namespace std;
+﻿#include "../include/grid.h"
+
 
 void Grid::input()
 {

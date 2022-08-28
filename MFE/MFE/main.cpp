@@ -1,14 +1,11 @@
-﻿#include "mfe.h"
-#include <iostream>
+﻿#include "include/mfe.h"
 
-using namespace std;
 
 int main()
 {
 	try
 	{
 		mfe m;
-
 		m.buildPortraitOfMatrix();
 		//m.assemblyGlobalMatrix();
 		//m.toDense("matrix2.txt");
@@ -26,15 +23,15 @@ int main()
 		switch (error)
 		{
 		case 0:
-			cout << "Unable to read file!" << endl;
+			std::cout << "Unable to read file!" << std::endl;
 			break;
 
 		case 1:
-			cout << "Point is out of range!" << endl;
+			std::cout << "Point is out of range!" << std::endl;
 			break;
 
 		case 2:
-			cout << "Unable to write result to file!" << endl;
+			std::cout << "Unable to write result to file!" << std::endl;
 			break;
 		}		
 	}
