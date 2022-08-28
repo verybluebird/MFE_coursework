@@ -19,7 +19,6 @@ Excecute this project in MS Visual Studio.
 All modules  will have a similar directory and file layout
 
     main.cpp
-    setup.h
     include/
       functions.h
       ...
