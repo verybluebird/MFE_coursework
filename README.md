@@ -12,7 +12,7 @@ Excecute this project in MS Visual Studio.
 
 ## Modules description:
 **Draw** - Phyton module for drawing a grid. It is needed to check the correctness of the grid generation.   
-![grid](https://github.com/verybluebird/MFE_coursework/blob/main/pictures/grid.png?raw=true)
+![grid](https://github.com/verybluebird/MFE_coursework/blob/main/pictures/grid.png?raw=true)  
 **grid_triangles_linear** - module for generating a grid for finite elements of the form: triangles with linear basic functions.  
 **MFE** - module that takes grid from previous module and approximates the unknown function over the domain with given boundary conditions using Finite Element Method.       
 # Layout
